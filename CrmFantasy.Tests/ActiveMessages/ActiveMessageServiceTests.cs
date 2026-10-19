@@ -78,7 +78,7 @@ public class ActiveMessageServiceTests
         Assert.Equal(ZohoTriggers.None, _crm.NoteTriggers.Single());
         Assert.Equal(("Deals", DealId, ActiveMessageService.NoteTitle), (note.Module, note.ParentId, note.Title));
         Assert.Equal(
-            "Resultado envio mensagem ativa: \nID Externo: PED-1\nEstagio e Ocorrencia: Aguardando || Nova\nTemplate: template_x\n" + V2Success,
+            "Resultado envio mensagem ativa: \nID Externo: PED-1\nEstágio: Aguardando\nOcorrência: Nova\nTemplate: template_x",
             note.Content);
     }
 
@@ -93,7 +93,7 @@ public class ActiveMessageServiceTests
         Assert.Equal(("Pendente", 1), (result!.Status, result.Attempt));
         var update = _crm.Updates.Single();
         Assert.Equal("Falha ao chamar o hub: conexão recusada", update["Response"]);
-        Assert.EndsWith("conexão recusada", _crm.Notes.Single().Content);
+        Assert.DoesNotContain("conexão recusada", _crm.Notes.Single().Content);
     }
 
     [Fact]

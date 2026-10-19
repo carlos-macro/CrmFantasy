@@ -68,7 +68,7 @@ public sealed class ActiveMessageService(
         var hubOutput = result.Error ?? result.RawBody;
 
         var extraFields = campaignId is null
-            ? null
+            ? null  
             : new Dictionary<string, object?> { ["ID_Campanha"] = campaignId };
 
         var attempt = await integrations.RecordAttemptAsync(
@@ -79,7 +79,7 @@ public sealed class ActiveMessageService(
             cancellationToken);
 
         // Nota no registro de origem
-        var noteContent = "Resultado envio mensagem ativa: \n" + Summary(source, request) + "\n" + hubOutput;
+        var noteContent = "Resultado envio mensagem ativa: \n" + Summary(source, request);
 
         await notes.TryCreateAsync(
             sourceModule,
@@ -102,7 +102,8 @@ public sealed class ActiveMessageService(
             .Value;
 
         return "ID Externo: " + source.GetString("C_digo_do_Pedido")
-            + "\nEstagio e Ocorrencia: " + source.GetString("Stage") + " || " + source.GetString("Ocorr_ncia")
+            + "\nEstágio: " + source.GetString("Stage")
+            + "\nOcorrência: " + source.GetString("Ocorr_ncia")
             + "\nTemplate: " + JsonText.Of(template);
     }
 }
