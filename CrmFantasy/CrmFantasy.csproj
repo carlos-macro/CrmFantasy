@@ -12,4 +12,13 @@
       <PackageReference Include="Scalar.AspNetCore" Version="2.18.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <InternalsVisibleTo Include="CrmFantasy.Tests" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <!-- Exemplos de configuração: só documentação, não vão para o build nem para o publish. -->
+      <Content Update="appsettings.*.example.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+    </ItemGroup>
+
 </Project>
